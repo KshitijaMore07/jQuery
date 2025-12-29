@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Valid Parentheses</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<input type="text" id="input" placeholder="Enter brackets" />
+<button id="check">Check</button>
+<p id="result"></p>
+
+<script>
+$(document).ready(function () {
+
+    function isValid(s) {
+        let stack = [];
+        let map = {
+            ')': '(',
+            '}': '{',
+            ']': '['
+        };
+
+        for (let i = 0; i < s.length; i++) {
+            let ch = s[i];
+
+            if (ch === '(' || ch === '{' || ch === '[') {
+                stack.push(ch);
+            } else {
+                if (stack.length === 0 || stack.pop() !== map[ch]) {
+                    return false;
+                }
+            }
+        }
+        return stack.length === 0;
+    }
+
+    $("#check").click(function () {
+        let input = $("#input").val();
+        let result = isValid(input);
+        $("#result").text(result ? "Valid String" : "Invalid String");
+    });
+
+});
+</script>
+
+</body>
+</html>
